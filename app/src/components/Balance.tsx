@@ -2,6 +2,7 @@ import { Container, Paper } from "@mui/material";
 
 export const Balance = () => {
   const paperStyle = { width: "30%", minWidth: "200px" };
+
   return (
     <section className="mt-28 h-40 mb-10">
       <Container
