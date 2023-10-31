@@ -40,15 +40,19 @@ export const TrackForm = () => {
         </DialogContent>
         <form>
           <FormControl sx={inputStyle}>
-            <FormLabel>Transaction Type</FormLabel>
-            <Select>
+            <FormLabel htmlFor="transactionType">Transaction Type</FormLabel>
+            <Select
+              name="transactionType"
+              id="transactionType"
+              defaultValue={"Income"}
+            >
               <MenuItem value="Income">Income</MenuItem>
               <MenuItem value="Expenses">Expenses</MenuItem>
             </Select>
           </FormControl>
           <FormControl sx={inputStyle}>
-            <FormLabel>Category</FormLabel>
-            <Select>
+            <FormLabel htmlFor="category">Category</FormLabel>
+            <Select id="category" name="category" defaultValue={"Groceries"}>
               {categoryArray.map((ele) => {
                 return (
                   <MenuItem key={ele} value={ele}>
@@ -59,12 +63,20 @@ export const TrackForm = () => {
             </Select>
           </FormControl>
           <FormControl sx={inputStyle}>
-            <FormLabel sx={formLabelStyle}>Transaction Type</FormLabel>
-            <TextField variant="outlined" />
+            <FormLabel htmlFor="transactionName" sx={formLabelStyle}>
+              Transaction Name
+            </FormLabel>
+            <TextField
+              id="transactionName"
+              variant="outlined"
+              name="transactionName"
+            />
           </FormControl>
           <FormControl sx={inputStyle}>
-            <FormLabel sx={formLabelStyle}>Amount</FormLabel>
-            <TextField variant="outlined" />
+            <FormLabel htmlFor="amount" sx={formLabelStyle}>
+              Amount
+            </FormLabel>
+            <TextField id="amount" variant="outlined" name="Amount" />
           </FormControl>
           <div className="flex">
             <Button
