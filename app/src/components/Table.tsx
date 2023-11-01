@@ -36,23 +36,10 @@ export const TableSection = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* <TableRow>
-                <TableCell>9/11/2023</TableCell>
-                <TableCell sx={{ color: "red" }} align="right">
-                  23,000$
-                </TableCell>
-                <TableCell align="right">Buying stuff</TableCell>
-                <TableCell align="right">Entertainment</TableCell>
-                <TableCell align="right">
-                  <Button color="error" variant="outlined">
-                    Remove
-                  </Button>
-                </TableCell>
-              </TableRow> */}
               {transactionData?.map((ele, index) => {
                 return (
                   <TableRow key={index + 292}>
-                    <TableCell>Today</TableCell>
+                    <TableCell>{ele.date}</TableCell>
                     <TableCell
                       align="right"
                       sx={{

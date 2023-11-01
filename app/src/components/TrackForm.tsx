@@ -45,20 +45,33 @@ export const TrackForm = () => {
         <form
           onSubmit={handleSubmit?.((data, e) => {
             e?.preventDefault();
+            console.log("hello world!", data);
             onSubmit?.(data);
           })}
         >
-          <FormControl sx={inputStyle}>
+          <FormControl
+            sx={inputStyle}
+            error={Boolean(errors?.transactionType?.message)}
+          >
             <FormLabel htmlFor="transactionType">Transaction Type</FormLabel>
             <Select
               {...register?.("transactionType")}
+              error={Boolean(errors?.transactionType)}
               name="transactionType"
               id="transactionType"
-              defaultValue={"Income"}
+              defaultValue={"Select"}
             >
+              <MenuItem value="Select">Select</MenuItem>
               <MenuItem value="Income">Income</MenuItem>
               <MenuItem value="Expenses">Expenses</MenuItem>
             </Select>
+            {errors?.transactionType?.message ? (
+              <p className=" text-xs ml-4 mt-1 text-red-600">
+                {errors.transactionType.message}
+              </p>
+            ) : (
+              ""
+            )}
           </FormControl>
           <FormControl sx={inputStyle}>
             <FormLabel htmlFor="category">Category</FormLabel>
@@ -66,8 +79,9 @@ export const TrackForm = () => {
               {...register?.("category")}
               id="category"
               name="category"
-              defaultValue={"Groceries"}
+              defaultValue={"Select"}
             >
+              <MenuItem value="Select">Select</MenuItem>
               {categoryArray.map((ele) => {
                 return (
                   <MenuItem key={ele} value={ele}>
@@ -76,6 +90,13 @@ export const TrackForm = () => {
                 );
               })}
             </Select>
+            {errors?.category?.message ? (
+              <p className=" text-xs ml-4 mt-1 text-red-600">
+                {errors.category.message}
+              </p>
+            ) : (
+              ""
+            )}
           </FormControl>
           <FormControl sx={inputStyle}>
             <FormLabel htmlFor="transactionName" sx={formLabelStyle}>
@@ -85,7 +106,7 @@ export const TrackForm = () => {
               error={Boolean(errors?.name)}
               helperText={errors?.name?.message}
               {...register?.("name")}
-              id="transactionName"
+              id="name"
               variant="outlined"
               name="name"
             />
@@ -99,6 +120,7 @@ export const TrackForm = () => {
               id="amount"
               variant="outlined"
               name="amount"
+              defaultValue={0}
             />
           </FormControl>
           <div className="flex">

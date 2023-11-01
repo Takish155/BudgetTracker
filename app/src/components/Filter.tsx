@@ -36,16 +36,20 @@ export const Filter = () => {
       >
         <DialogTitle>Filter</DialogTitle>
         <FormControl sx={inputStyle}>
-          <FormLabel>Tranasaction</FormLabel>
-          <Select defaultValue={"All Transaction"} name="Transaction">
+          <FormLabel htmlFor="Transaction">Tranasaction</FormLabel>
+          <Select
+            defaultValue={"All Transaction"}
+            name="Transaction"
+            id="Transaction"
+          >
             <MenuItem value="All Transaction">All Transaction</MenuItem>
             <MenuItem value="Income">Income</MenuItem>
             <MenuItem value="Expenses">Expenses</MenuItem>
           </Select>
         </FormControl>
         <FormControl sx={inputStyle}>
-          <FormLabel>Category</FormLabel>
-          <Select defaultValue={"All Category"} name="Category">
+          <FormLabel htmlFor="Category">Category</FormLabel>
+          <Select defaultValue={"All Category"} name="Category" id="Category">
             <MenuItem value="All Category">All Category</MenuItem>
             {categoryArray.map((ele) => {
               return (

@@ -8,8 +8,21 @@ import {
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import date from "date-and-time";
+
+const now = new Date();
+const currentDate = date.format(now, "ddd, MMM DD YYYY");
 
 export type AddTransactionForm = {
+  transactionType: "Income" | "Expenses";
+  category: "Groceries" | "Utilities" | "Entertainment" | "Necessity";
+  name: string;
+  amount: number;
+  date: string;
+  id: number;
+};
+
+export type RegisterForm = {
   transactionType: "Income" | "Expenses";
   category: "Groceries" | "Utilities" | "Entertainment" | "Necessity";
   name: string;
@@ -18,10 +31,10 @@ export type AddTransactionForm = {
 
 const schema = z.object({
   transactionType: z.enum(["Income", "Expenses"], {
-    errorMap: () => ({ message: "Transaction is required." }),
+    errorMap: () => ({ message: "Please select something." }),
   }),
   category: z.enum(["Groceries", "Utilities", "Entertainment", "Necessity"], {
-    errorMap: () => ({ message: "Category is required." }),
+    errorMap: () => ({ message: "Please select something." }),
   }),
   name: z
     .string()
@@ -44,6 +57,8 @@ export function useTransactionForm() {
       category: "Entertainment",
       name: "Buying some stuff",
       amount: 282,
+      date: currentDate,
+      id: 0,
     },
   ]);
 
@@ -56,7 +71,7 @@ export function useTransactionForm() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: AddTransactionForm) => {
+  const onSubmit = (data: RegisterForm) => {
     setTransactionData((prevTransaction) => [
       ...prevTransaction,
       {
@@ -64,6 +79,8 @@ export function useTransactionForm() {
         category: data.category,
         name: data.name,
         amount: data.amount,
+        date: currentDate,
+        id: prevTransaction.length + 1,
       },
     ]);
   };
@@ -72,10 +89,10 @@ export function useTransactionForm() {
 }
 
 export type UseTransactionFormType = {
-  register: UseFormRegister<AddTransactionForm>;
-  handleSubmit: UseFormHandleSubmit<AddTransactionForm>;
-  reset: UseFormReset<AddTransactionForm>;
+  register: UseFormRegister<RegisterForm>;
+  handleSubmit: UseFormHandleSubmit<RegisterForm>;
+  reset: UseFormReset<RegisterForm>;
   errors: FieldErrors<AddTransactionForm>;
-  onSubmit: (data: AddTransactionForm) => void;
+  onSubmit: (data: RegisterForm) => void;
   transactionData: AddTransactionForm[];
 };
