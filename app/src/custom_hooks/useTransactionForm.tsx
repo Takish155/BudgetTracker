@@ -9,6 +9,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import date from "date-and-time";
+import { v4 as uuidv4 } from "uuid";
 
 const now = new Date();
 const currentDate = date.format(now, "ddd, MMM DD YYYY");
@@ -19,7 +20,7 @@ export type AddTransactionForm = {
   name: string;
   amount: number;
   date: string;
-  id: number;
+  id: string;
 };
 
 export type RegisterForm = {
@@ -58,7 +59,7 @@ export function useTransactionForm() {
       name: "Buying some stuff",
       amount: 282,
       date: currentDate,
-      id: 0,
+      id: uuidv4(),
     },
   ]);
 
@@ -80,9 +81,11 @@ export function useTransactionForm() {
         name: data.name,
         amount: data.amount,
         date: currentDate,
-        id: prevTransaction.length + 1,
+        id: uuidv4(),
       },
     ]);
+
+    console.log(transactionData);
   };
 
   const onRemove = (id: number) => {

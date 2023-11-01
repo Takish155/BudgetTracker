@@ -12,10 +12,14 @@ import {
 
 import { Filter } from "./Filter";
 import { TrackForm } from "./TrackForm";
-import { UseAddTransactionFormContext } from "../context/useTransactionFormContext";
+import {
+  UseAddTransactionFormContext,
+  UseFilterContext,
+} from "../context/useTransactionFormContext";
 
 export const TableSection = () => {
-  const { transactionData, onRemove } = UseAddTransactionFormContext() || {};
+  const { onRemove } = UseAddTransactionFormContext() || {};
+  const { filteredData } = UseFilterContext() || {};
   return (
     <>
       <Paper sx={{ width: "95%", margin: "0 auto" }}>
@@ -36,7 +40,7 @@ export const TableSection = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {transactionData?.map((ele, index) => {
+              {filteredData?.map((ele, index) => {
                 return (
                   <TableRow key={index + 292}>
                     <TableCell>{ele.date}</TableCell>
