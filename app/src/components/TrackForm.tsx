@@ -13,12 +13,16 @@ import {
 import { useState } from "react";
 import { categoryArray } from "../assets/data/categories";
 import { buttonStyle } from "../assets/Style";
+import { UseAddTransactionFormContext } from "../context/useTransactionFormContext";
 
 const inputStyle = { marginLeft: "1rem", width: "50%", marginBottom: "1rem" };
 const formLabelStyle = { marginBottom: "0.5rem" };
 
 export const TrackForm = () => {
+  const { register, handleSubmit, onSubmit, errors } =
+    UseAddTransactionFormContext() || {};
   const [openForm, setOpenForm] = useState<boolean>(true);
+
   return (
     <>
       <Button
@@ -38,10 +42,16 @@ export const TrackForm = () => {
         <DialogContent>
           Record your transaction, be sure to fill the blanks!
         </DialogContent>
-        <form>
+        <form
+          onSubmit={handleSubmit?.((data, e) => {
+            e?.preventDefault();
+            onSubmit?.(data);
+          })}
+        >
           <FormControl sx={inputStyle}>
             <FormLabel htmlFor="transactionType">Transaction Type</FormLabel>
             <Select
+              {...register?.("transactionType")}
               name="transactionType"
               id="transactionType"
               defaultValue={"Income"}
@@ -52,7 +62,12 @@ export const TrackForm = () => {
           </FormControl>
           <FormControl sx={inputStyle}>
             <FormLabel htmlFor="category">Category</FormLabel>
-            <Select id="category" name="category" defaultValue={"Groceries"}>
+            <Select
+              {...register?.("category")}
+              id="category"
+              name="category"
+              defaultValue={"Groceries"}
+            >
               {categoryArray.map((ele) => {
                 return (
                   <MenuItem key={ele} value={ele}>
@@ -67,16 +82,24 @@ export const TrackForm = () => {
               Transaction Name
             </FormLabel>
             <TextField
+              error={Boolean(errors?.name)}
+              helperText={errors?.name?.message}
+              {...register?.("name")}
               id="transactionName"
               variant="outlined"
-              name="transactionName"
+              name="name"
             />
           </FormControl>
           <FormControl sx={inputStyle}>
             <FormLabel htmlFor="amount" sx={formLabelStyle}>
               Amount
             </FormLabel>
-            <TextField id="amount" variant="outlined" name="Amount" />
+            <TextField
+              {...register?.("amount", { valueAsNumber: true })}
+              id="amount"
+              variant="outlined"
+              name="amount"
+            />
           </FormControl>
           <div className="flex">
             <Button
@@ -87,11 +110,7 @@ export const TrackForm = () => {
             >
               Close
             </Button>
-            <Button
-              variant="contained"
-              sx={buttonStyle}
-              onClick={() => setOpenForm(!openForm)}
-            >
+            <Button type="submit" variant="contained" sx={buttonStyle}>
               Submit
             </Button>
           </div>

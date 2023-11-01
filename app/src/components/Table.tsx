@@ -53,7 +53,15 @@ export const TableSection = () => {
                 return (
                   <TableRow key={index + 292}>
                     <TableCell>Today</TableCell>
-                    <TableCell align="right">${ele.amount}</TableCell>
+                    <TableCell
+                      align="right"
+                      sx={{
+                        color:
+                          ele.transactionType === "Income" ? "green" : "red",
+                      }}
+                    >
+                      ${ele.amount}
+                    </TableCell>
                     <TableCell align="right">{ele.name}</TableCell>
                     <TableCell align="right">{ele.category}</TableCell>
                     <TableCell align="right">

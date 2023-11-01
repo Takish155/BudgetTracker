@@ -57,8 +57,8 @@ export function useTransactionForm() {
   });
 
   const onSubmit = (data: AddTransactionForm) => {
-    setTransactionData([
-      ...transactionData,
+    setTransactionData((prevTransaction) => [
+      ...prevTransaction,
       {
         transactionType: data.transactionType,
         category: data.category,
