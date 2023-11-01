@@ -15,7 +15,7 @@ import { TrackForm } from "./TrackForm";
 import { UseAddTransactionFormContext } from "../context/useTransactionFormContext";
 
 export const TableSection = () => {
-  const { transactionData } = UseAddTransactionFormContext() || {};
+  const { transactionData, onRemove } = UseAddTransactionFormContext() || {};
   return (
     <>
       <Paper sx={{ width: "95%", margin: "0 auto" }}>
@@ -52,7 +52,11 @@ export const TableSection = () => {
                     <TableCell align="right">{ele.name}</TableCell>
                     <TableCell align="right">{ele.category}</TableCell>
                     <TableCell align="right">
-                      <Button color="error" variant="outlined">
+                      <Button
+                        color="error"
+                        variant="outlined"
+                        onClick={() => onRemove?.(ele.id)}
+                      >
                         Remove
                       </Button>
                     </TableCell>

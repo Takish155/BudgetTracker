@@ -85,7 +85,23 @@ export function useTransactionForm() {
     ]);
   };
 
-  return { register, handleSubmit, reset, errors, onSubmit, transactionData };
+  const onRemove = (id: number) => {
+    setTransactionData(
+      transactionData.filter((ele) => {
+        return ele.id !== id;
+      })
+    );
+  };
+
+  return {
+    register,
+    handleSubmit,
+    reset,
+    errors,
+    onSubmit,
+    transactionData,
+    onRemove,
+  };
 }
 
 export type UseTransactionFormType = {
@@ -95,4 +111,5 @@ export type UseTransactionFormType = {
   errors: FieldErrors<AddTransactionForm>;
   onSubmit: (data: RegisterForm) => void;
   transactionData: AddTransactionForm[];
+  onRemove: (id: number) => void;
 };
