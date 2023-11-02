@@ -3,4 +3,5 @@ export const categoryArray: string[] = [
   "Utilities",
   "Entertainment",
   "Necessity",
+  "Salary",
 ];

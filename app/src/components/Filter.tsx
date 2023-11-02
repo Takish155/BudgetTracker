@@ -7,14 +7,20 @@ import {
   FormLabel,
   MenuItem,
   Select,
+  useMediaQuery,
 } from "@mui/material";
 
 import { categoryArray } from "../assets/data/categories";
 import { useState } from "react";
 import { buttonStyle, inputStyle } from "../assets/Style";
+import { UseFilterContext } from "../context/useTransactionFormContext";
+import { Category, Transaction } from "../custom_hooks/useFilter";
 
 export const Filter = () => {
   const [openFilter, setOpenFilter] = useState<boolean>(false);
+  const { setCategory, setTransaction } = UseFilterContext() || {};
+  const matches = useMediaQuery("(max-width:800px)");
+
   return (
     <>
       <Button
@@ -27,7 +33,7 @@ export const Filter = () => {
         variant="outlined"
       >
         <FilterAltIcon sx={{ fontSize: "2rem" }} />
-        Filter
+        {matches ? "" : "Filter"}
       </Button>
       <Dialog
         open={openFilter}
@@ -38,19 +44,25 @@ export const Filter = () => {
         <FormControl sx={inputStyle}>
           <FormLabel htmlFor="Transaction">Tranasaction</FormLabel>
           <Select
-            defaultValue={"All Transaction"}
+            onChange={(e) => setTransaction?.(e.target.value as Transaction)}
+            defaultValue={"All Transactions"}
             name="Transaction"
             id="Transaction"
           >
-            <MenuItem value="All Transaction">All Transaction</MenuItem>
+            <MenuItem value="All Transactions">All Transaction</MenuItem>
             <MenuItem value="Income">Income</MenuItem>
             <MenuItem value="Expenses">Expenses</MenuItem>
           </Select>
         </FormControl>
         <FormControl sx={inputStyle}>
           <FormLabel htmlFor="Category">Category</FormLabel>
-          <Select defaultValue={"All Category"} name="Category" id="Category">
-            <MenuItem value="All Category">All Category</MenuItem>
+          <Select
+            defaultValue={"All Section"}
+            name="Category"
+            id="Category"
+            onChange={(e) => setCategory?.(e.target.value as Category)}
+          >
+            <MenuItem value="All Section">All Section</MenuItem>
             {categoryArray.map((ele) => {
               return (
                 <MenuItem key={ele} value={ele}>
