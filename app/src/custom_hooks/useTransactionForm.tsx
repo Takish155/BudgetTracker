@@ -16,7 +16,12 @@ const currentDate = date.format(now, "ddd, MMM DD YYYY");
 
 export type AddTransactionForm = {
   transactionType: "Income" | "Expenses";
-  category: "Groceries" | "Utilities" | "Entertainment" | "Necessity";
+  category:
+    | "Groceries"
+    | "Utilities"
+    | "Entertainment"
+    | "Necessity"
+    | "Salary";
   name: string;
   amount: number;
   date: string;
@@ -25,7 +30,12 @@ export type AddTransactionForm = {
 
 export type RegisterForm = {
   transactionType: "Income" | "Expenses";
-  category: "Groceries" | "Utilities" | "Entertainment" | "Necessity";
+  category:
+    | "Groceries"
+    | "Utilities"
+    | "Entertainment"
+    | "Necessity"
+    | "Salary";
   name: string;
   amount: number;
 };
@@ -34,9 +44,12 @@ const schema = z.object({
   transactionType: z.enum(["Income", "Expenses"], {
     errorMap: () => ({ message: "Please select something." }),
   }),
-  category: z.enum(["Groceries", "Utilities", "Entertainment", "Necessity"], {
-    errorMap: () => ({ message: "Please select something." }),
-  }),
+  category: z.enum(
+    ["Groceries", "Utilities", "Entertainment", "Necessity", "Salary"],
+    {
+      errorMap: () => ({ message: "Please select something." }),
+    }
+  ),
   name: z
     .string()
     .min(3, { message: "Name should be at least 3 characters" })
@@ -84,8 +97,6 @@ export function useTransactionForm() {
         id: uuidv4(),
       },
     ]);
-
-    console.log(transactionData);
   };
 
   const onRemove = (id: string) => {

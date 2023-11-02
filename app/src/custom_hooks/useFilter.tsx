@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { AddTransactionForm } from "./useTransactionForm";
 import { UseAddTransactionFormContext } from "../context/useTransactionFormContext";
 
-type Transaction = "All Transactions" | "Income" | "Expenses";
-type Category =
+export type Transaction = "All Transactions" | "Income" | "Expenses";
+export type Category =
   | "All Section"
   | "Groceries"
   | "Utilities"
   | "Entertainment"
-  | "Necessity";
+  | "Necessity"
+  | "Salary";
 
 export const useFilter = () => {
   const { transactionData } = UseAddTransactionFormContext() || {};
@@ -21,17 +22,18 @@ export const useFilter = () => {
     transactionData ?? []
   );
 
-  console.log(transactionData);
-
   useEffect(() => {
+    console.log(transactionData);
     let newFilteredTransaction = transactionData;
 
     if (transaction !== "All Transactions") {
+      console.log(transaction, " CHanged!");
       newFilteredTransaction = newFilteredTransaction?.filter((ele) => {
         return ele.transactionType === transaction;
       });
     }
 
+    console.log(category, " CHanged!");
     if (category !== "All Section") {
       newFilteredTransaction = newFilteredTransaction?.filter((ele) => {
         return ele.category === category;

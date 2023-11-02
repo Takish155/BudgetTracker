@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 import {
   AddTransactionFormProvider,
+  BalanceHandlerContextProvider,
   FilterContextProvider,
 } from "./context/useTransactionFormContext.tsx";
 
@@ -11,7 +12,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AddTransactionFormProvider>
       <FilterContextProvider>
-        <App />
+        <BalanceHandlerContextProvider>
+          <App />
+        </BalanceHandlerContextProvider>
       </FilterContextProvider>
     </AddTransactionFormProvider>
   </React.StrictMode>

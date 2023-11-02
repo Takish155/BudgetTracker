@@ -9,6 +9,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  useMediaQuery,
 } from "@mui/material";
 import { useState } from "react";
 import { categoryArray } from "../assets/data/categories";
@@ -22,6 +23,7 @@ export const TrackForm = () => {
   const { register, handleSubmit, onSubmit, errors } =
     UseAddTransactionFormContext() || {};
   const [openForm, setOpenForm] = useState<boolean>(true);
+  const matches = useMediaQuery("(max-width:800px)");
 
   return (
     <>
@@ -31,7 +33,7 @@ export const TrackForm = () => {
         sx={{ margin: "0.5rem 0.5rem" }}
       >
         <AddIcon />
-        Add Transaction
+        {matches ? "" : "Add Transaction"}
       </Button>
       <Dialog
         open={openForm}

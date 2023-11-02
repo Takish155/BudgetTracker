@@ -5,11 +5,13 @@ import { TableSection } from "./components/Table";
 
 function App() {
   return (
-    <main>
+    <>
       <Header />
-      <Balance />
-      <TableSection />
-    </main>
+      <main>
+        <Balance />
+        <TableSection />
+      </main>
+    </>
   );
 }
 
